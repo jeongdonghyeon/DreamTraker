@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/background_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:text="00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:id="@+id/seekBarTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="120"
+        android:progress="30" />
+
+    <TextView
+        android:id="@+id/tvSelectedTime"
+        android:text="선택: 30분"
+        android:textColor="#AAAAAA"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/spinnerSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:text="수면 시작"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp" />
+
+
+    <TextView
+        android:id="@+id/tvSleepDuration"
+        android:text="수면 시간: -"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnViewHistory"
+        android:text="기록 보기"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뒤로가기"
+        android:layout_margin="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+
+</LinearLayout>

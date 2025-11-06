@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/background_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="🎧 수면 사운드"
+        android:textSize="28sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnNature"
+        android:text="자연 소리 재생"
+        android:textAllCaps="false"
+        android:backgroundTint="#6A5ACD"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnSea"
+        android:text="파도 소리 재생"
+        android:textAllCaps="false"
+        android:backgroundTint="#6A5ACD"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnStop"
+        android:text="정지"
+        android:textAllCaps="false"
+        android:backgroundTint="#483D8B"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:text="← 뒤로가기"
+        android:textAllCaps="false"
+        android:backgroundTint="#2F2F2F"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button" />
+
+</LinearLayout>
