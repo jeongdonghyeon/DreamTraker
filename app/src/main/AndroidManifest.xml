@@ -13,18 +13,27 @@
         android:theme="@style/Theme.DreamTraker"
         tools:targetApi="31">
 
-        <activity android:name=".MusicActivity" />
-        <activity android:name=".SleepTimerActivity" />
-        <activity android:name=".SleepHistoryActivity" />
-
+        <!-- 🔹 스플래시 Activity를 앱 시작 지점으로 등록 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 기존 액티비티들 -->
+        <activity android:name=".MusicActivity" />
+        <activity android:name=".SleepTimerActivity" />
+        <activity android:name=".SleepHistoryActivity" />
+        <activity android:name=".StatsActivity"/>
+
+        <!-- 🔹 MainActivity는 이제 일반 화면으로만 사용 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

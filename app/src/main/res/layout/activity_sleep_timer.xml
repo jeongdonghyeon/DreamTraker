@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
-    android:background="@drawable/background_gradient"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="00:00"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        android:layout_marginBottom="32dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="48sp" />
 
     <SeekBar
         android:id="@+id/seekBarTime"
@@ -26,51 +25,52 @@
 
     <TextView
         android:id="@+id/tvSelectedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="선택: 30분"
         android:textColor="#AAAAAA"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/spinnerSound"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#AAAAAA"
         android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/btnStart"
-        android:text="수면 시작"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:text="수면 시작" />
 
 
     <TextView
         android:id="@+id/tvSleepDuration"
-        android:text="수면 시간: -"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="수면 시간: -"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnViewHistory"
-        android:text="기록 보기"
-        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="기록 보기" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="뒤로가기"
-        android:layout_margin="16dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:text="뒤로가기" />
 
 
 </LinearLayout>

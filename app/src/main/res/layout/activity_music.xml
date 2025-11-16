@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/btnNature"
-        android:text="자연 소리 재생"
+        android:text="잔잔한 물결"
         android:textAllCaps="false"
         android:backgroundTint="#6A5ACD"
         android:textColor="#FFFFFF"
@@ -30,7 +30,7 @@
 
     <Button
         android:id="@+id/btnSea"
-        android:text="파도 소리 재생"
+        android:text="어두운 자연"
         android:textAllCaps="false"
         android:backgroundTint="#6A5ACD"
         android:textColor="#FFFFFF"

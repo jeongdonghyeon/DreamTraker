@@ -49,10 +49,15 @@ public class SleepTimerActivity extends AppCompatActivity {
         spinnerSound = findViewById(R.id.spinnerSound);
 
         // Spinner 설정
-        String[] sounds = {"빗소리", "파도소리"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sounds);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String[] sounds = {"파도", "자연"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item,
+                sounds
+        );
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerSound.setAdapter(adapter);
+
 
         // SeekBar 이벤트
         seekBarTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -82,7 +87,7 @@ public class SleepTimerActivity extends AppCompatActivity {
         startTimeMillis = System.currentTimeMillis();
 
         String selectedSound = spinnerSound.getSelectedItem().toString();
-        int soundRes = selectedSound.equals("빗소리") ? R.raw.nature : R.raw.sea_waves;
+        int soundRes = selectedSound.equals("파도") ? R.raw.nature : R.raw.sea_waves;
 
         mediaPlayer = MediaPlayer.create(this, soundRes);
         mediaPlayer.setLooping(true);

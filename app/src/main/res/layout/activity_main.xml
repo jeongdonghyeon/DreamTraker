@@ -7,18 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="Dream Tracker"
-        android:textColor="#FFFFFF"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/btnMusic"
-        android:text="음악 재생"
+        android:text="ASMR 재생"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp" />
@@ -30,9 +21,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp" />
 
+
     <Button
-        android:id="@+id/btnHistory"
-        android:text="수면 기록 보기"
+        android:id="@+id/btn_go_stats"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="수면 기록 보기 📊" />
+
+
 </LinearLayout>
