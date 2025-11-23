@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "kr.co.example.dreamtraker"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -25,14 +25,21 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    // 🔥 AAR(local) 라이브러리 인식 설정 추가
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDir("libs")
+        }
+    }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -40,5 +47,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(files("libs/samsung-health-data-api-1.0.0.aar"))
 }
