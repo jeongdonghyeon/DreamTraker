@@ -31,7 +31,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // 🔥 AAR(local) 라이브러리 인식 설정 추가
     sourceSets {
         getByName("main") {
             jniLibs.srcDir("libs")
@@ -48,6 +47,8 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.mpandroidchart)
+
+    // 🔥 AAR 불러오기 정답!
     implementation(files("libs/samsung-health-data-api-1.0.0.aar"))
 }

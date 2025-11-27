@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Samsung Health 권한 -->
-    <uses-permission android:name="com.samsung.android.health.permission.READ_HEALTH_DATA" />
-    <uses-permission android:name="com.samsung.android.health.permission.WRITE_HEALTH_DATA" />
+    <uses-permission android:name="com.samsung.health.permission.ACCESS_HEALTH_DATA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DreamTraker"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.samsung.health.app_id"
+            android:value="kr.co.example.dreamtraker" />
 
         <activity
             android:name=".SplashActivity"
@@ -29,7 +33,7 @@
         <activity android:name=".MusicActivity" />
         <activity android:name=".SleepTimerActivity" />
         <activity android:name=".SleepHistoryActivity" />
-        <activity android:name=".StatsActivity"/>
+        <activity android:name=".SleepRecordListActivity"/>
         <activity android:name=".MainActivity" android:exported="true" />
 
     </application>
