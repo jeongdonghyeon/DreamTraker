@@ -4,166 +4,196 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
+    android:fitsSystemWindows="true"
     android:padding="0dp">
 
-    <LinearLayout
-        android:id="@+id/header_layout"
+    <Button
+        android:id="@+id/btnDeleteSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
-
-        <ImageButton
-            android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vector"
-            android:background="@null"
-            android:contentDescription="닫기"
-            app:tint="#FFFFFF" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="수면 기록"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_margin="24dp"
+        android:text="선택한 기록 삭제하기"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF5252"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:elevation="10dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header_layout">
+        android:layout_above="@id/btnDeleteSelected"> <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vector"
+                android:background="@null"
+                android:contentDescription="닫기"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="수면 기록"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수면 시간"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수면 시간"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="32dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="32dp">
+                android:background="@drawable/bottom_nav_background"
+                android:paddingVertical="16dp"
+                android:layout_marginEnd="8dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvDetailHours"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/bottom_nav_background"
-                    android:paddingVertical="16dp"
-                    android:layout_marginEnd="8dp">
-
-                    <TextView
-                        android:id="@+id/tvDetailHours"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="07"
-                        android:textColor="#FFFFFF"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hours"
-                        android:textColor="#AAAAAA"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:text="07"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/bottom_nav_background"
-                    android:paddingVertical="16dp"
-                    android:layout_marginEnd="8dp">
-
-                    <TextView
-                        android:id="@+id/tvDetailMinutes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="32"
-                        android:textColor="#FFFFFF"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Minutes"
-                        android:textColor="#AAAAAA"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/bottom_nav_background"
-                    android:paddingVertical="16dp">
-
-                    <TextView
-                        android:id="@+id/tvDetailSeconds"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15"
-                        android:textColor="#FFFFFF"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seconds"
-                        android:textColor="#AAAAAA"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
+                    android:text="Hours"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"/>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bottom_nav_background"
+                android:paddingVertical="16dp"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:id="@+id/tvDetailMinutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minutes"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bottom_nav_background"
+                android:paddingVertical="16dp">
+
+                <TextView
+                    android:id="@+id/tvDetailSeconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seconds"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="수면 시간 및 기록"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                android:textStyle="bold"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSleepRecords"
-                android:layout_width="match_parent"
-                android:layout_height="138dp"
-                android:layout_marginBottom="50dp"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+            <TextView
+                android:id="@+id/btnToggleEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="편집"
+                android:textColor="#AAAAAA"
+                android:textSize="16sp"
+                android:padding="8dp"/>
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSleepRecords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
 
     </ScrollView>
 </RelativeLayout>

@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
-    <TextView
-        android:id="@+id/appName"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logo_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DreamTracker"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-thin"
-        android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:layout_centerInParent="false"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp">
+
+        <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dreamtraker"
+        android:contentDescription="DreamTracker App Logo"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Dream Tracker"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="#FFFFFF"
+
+            app:layout_constraintTop_toBottomOf="@+id/appLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/nextclick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appName"
-        android:layout_alignEnd="@+id/appName"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="74dp"
+        android:layout_below="@+id/logo_group"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:fontFamily="sans-serif-thin"
         android:text="다음 화면을 클릭해주세요"
         android:textColor="#FFFFFF"
-        android:textSize="10dp"
+        android:textSize="10sp"
         android:textStyle="normal" />
 
 </RelativeLayout>

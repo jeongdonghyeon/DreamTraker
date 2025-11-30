@@ -1,6 +1,7 @@
 package kr.co.example.dreamtraker;
 
 import android.content.Intent;
+import android.content.SharedPreferences; // 💾 추가
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,40 +14,45 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat.Type;
+
+import com.google.gson.Gson; // 💾 추가
+import com.google.gson.reflect.TypeToken; // 💾 추가
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-// 이 Activity가 이제 메인 화면(수면 타이머) 역할을 합니다.
 public class MainActivity extends AppCompatActivity {
 
-    // UI 요소 변수
     private TextView tvTimer, tvSleepDuration;
     private Button btnStart, btnViewHistory;
     private Spinner spinnerSound;
     private NumberPicker npHour, npMinute;
     private LinearLayout navSleep, navAsmr, navChart;
+    private LinearLayout bottomNavigationBar;
 
-    // 타이머 및 미디어 로직 변수
     private CountDownTimer countDownTimer;
-    private MediaPlayer mediaPlayer;
-    private boolean isRunning = false;
-    private int selectedTotalMinutes = 30; // 초기 설정 시간 (30분)
-    private long startTimeMillis = 0;
+    private static MediaPlayer mediaPlayer;
+    private static boolean isRunning = false;
+    private static long startTimeMillis = 0;
+    private static long targetEndTimeMillis = 0;
+    private static int selectedTotalMinutes = 30;
 
-    // 기록 저장소 (SleepRecord.java는 별도로 존재해야 합니다)
     public static ArrayList<SleepRecord> sleepRecords = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 🌟 레이아웃을 activity_main.xml로 설정합니다.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_main);
 
-        // 1. UI 요소 연결 (findViewById)
+        // 💾 1. 앱 실행 시 저장된 데이터 불러오기
+        loadSleepRecords();
+
         tvTimer = findViewById(R.id.tvTimer);
         tvSleepDuration = findViewById(R.id.tvSleepDuration);
         btnStart = findViewById(R.id.btnStart);
@@ -54,23 +60,20 @@ public class MainActivity extends AppCompatActivity {
         spinnerSound = findViewById(R.id.spinnerSound);
         npHour = findViewById(R.id.npHour);
         npMinute = findViewById(R.id.npMinute);
-
-        // 하단 탭 메뉴 항목 연결
         navSleep = findViewById(R.id.navSleep);
         navAsmr = findViewById(R.id.navAsmr);
         navChart = findViewById(R.id.navChart);
+        bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
 
-        // 2. 초기 설정
+        applyNavigationBarPadding();
         setupNumberPickers();
         setupSpinner();
 
-        // 3. 이벤트 리스너 설정
         btnStart.setOnClickListener(v -> {
             if (!isRunning) startSleep();
             else stopSleep();
         });
 
-        // 🚨 이 부분 수정: '기록 보기' 버튼 클릭 시 SleepRecordListActivity로 이동
         btnViewHistory.setOnClickListener(v -> {
             startActivity(new Intent(this, SleepRecordListActivity.class));
         });
@@ -78,16 +81,29 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigationListeners();
     }
 
-    // ------------------- 초기 설정 메서드 -------------------
+    private void applyNavigationBarPadding() {
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationBar, (v, insets) -> {
+            int bottomInset = insets.getInsets(Type.systemBars()).bottom;
+            int topPadding = v.getPaddingTop();
+            int leftPadding = v.getPaddingLeft();
+            int rightPadding = v.getPaddingRight();
+            float density = getResources().getDisplayMetrics().density;
+            int originalBottomPaddingDp = 12;
+            int originalBottomPaddingPx = (int) (originalBottomPaddingDp * density);
+            int dynamicBottomPadding = bottomInset + originalBottomPaddingPx;
+            v.setPadding(leftPadding, topPadding, rightPadding, dynamicBottomPadding);
+            return insets;
+        });
+    }
 
     private void setupSpinner() {
         String[] sounds = {"파도", "자연"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_item, // 기본 레이아웃 사용
+                android.R.layout.simple_spinner_item,
                 sounds
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // 기본 드롭다운 사용
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSound.setAdapter(adapter);
     }
 
@@ -102,24 +118,21 @@ public class MainActivity extends AppCompatActivity {
         npMinute.setWrapSelectorWheel(true);
         npMinute.setValue(30);
 
-        NumberPicker.OnValueChangeListener listener = (picker, oldVal, newVal) -> updateSelectedTime();
+        NumberPicker.OnValueChangeListener listener = (picker, oldVal, newVal) -> {
+            if (!isRunning) updateSelectedTime();
+        };
         npHour.setOnValueChangedListener(listener);
         npMinute.setOnValueChangedListener(listener);
 
         updateSelectedTime();
     }
 
-    // ------------------- 로직 및 업데이트 메서드 -------------------
-
     private void updateSelectedTime() {
         int hours = npHour.getValue();
         int minutes = npMinute.getValue();
         selectedTotalMinutes = (hours * 60) + minutes;
+        tvTimer.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hours, minutes));
 
-        // 상단 '00:00' 텍스트 업데이트 (선택된 시간 표시)
-        tvTimer.setText(String.format(Locale.getDefault(), "%02d:%02d", hours, minutes));
-
-        // 하단 문구 업데이트
         if (selectedTotalMinutes > 0) {
             tvSleepDuration.setText(String.format(Locale.getDefault(),
                     "%d시간 %d분 후에 알람이 종료됩니다.", hours, minutes));
@@ -137,9 +150,10 @@ public class MainActivity extends AppCompatActivity {
         isRunning = true;
         btnStart.setText("중지");
         startTimeMillis = System.currentTimeMillis();
+        long durationMillis = (long) selectedTotalMinutes * 60 * 1000;
+        targetEndTimeMillis = startTimeMillis + durationMillis;
 
         String selectedSound = spinnerSound.getSelectedItem().toString();
-        // R.raw.nature과 R.raw.sea_waves 리소스 ID는 프로젝트에 존재해야 합니다.
         int soundRes = selectedSound.equals("파도") ? R.raw.nature : R.raw.sea_waves;
 
         try {
@@ -150,25 +164,34 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "오디오 리소스를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
         }
 
-        // CountDownTimer 설정
-        long totalMillis = (long) selectedTotalMinutes * 60 * 1000;
-        countDownTimer = new CountDownTimer(totalMillis, 1000) {
+        startCountDownTimer(durationMillis);
+        npHour.setEnabled(false);
+        npMinute.setEnabled(false);
+    }
+
+    private void startCountDownTimer(long millisInFuture) {
+        if (countDownTimer != null) countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(millisInFuture, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int minutes = (int) (millisUntilFinished / 1000) / 60;
-                int seconds = (int) (millisUntilFinished / 1000) % 60;
-                tvTimer.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
+                updateTimerUI(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                tvTimer.setText("00:00");
+                tvTimer.setText("00:00:00");
                 stopSleep(true);
             }
         }.start();
+    }
 
-        npHour.setEnabled(false);
-        npMinute.setEnabled(false);
+    private void updateTimerUI(long millisUntilFinished) {
+        int totalSeconds = (int) (millisUntilFinished / 1000);
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+        tvTimer.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
     }
 
     private void stopSleep(boolean isTimerFinish) {
@@ -185,30 +208,33 @@ public class MainActivity extends AppCompatActivity {
         long endTimeMillis = System.currentTimeMillis();
         long diff = endTimeMillis - startTimeMillis;
 
-        // 기록 로직
-        if (diff < 5000 && !isTimerFinish) { // 5초 미만은 기록 저장 안 함
+        if (diff < 5000 && !isTimerFinish) {
             tvSleepDuration.setText("수면 시간을 설정해주세요.");
         } else {
             long totalSeconds = diff / 1000;
             int hours = (int) (totalSeconds / 3600);
             int minutes = (int) ((totalSeconds % 3600) / 60);
+            int seconds = (int) (totalSeconds % 60);
 
-            String duration = hours + "시간 " + minutes + "분";
+            String duration = String.format(Locale.getDefault(), "%d시간 %d분 %d초", hours, minutes, seconds);
             tvSleepDuration.setText("측정된 수면 시간: " + duration);
 
             String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(startTimeMillis));
             String startTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(startTimeMillis));
             String endTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(endTimeMillis));
 
-            // SleepRecord 클래스가 정의되어 있다고 가정
             sleepRecords.add(new SleepRecord(
                     date,
                     startTime,
                     endTime,
                     duration,
-                    "양호", // 수면 질은 임시로 '양호'로 설정
+                    "양호",
                     diff
             ));
+
+            // 💾 2. 기록 추가 후 데이터 저장
+            saveSleepRecords();
+
             Toast.makeText(this, "수면 기록이 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }
 
@@ -221,36 +247,74 @@ public class MainActivity extends AppCompatActivity {
         stopSleep(false);
     }
 
-    /**
-     * 하단 탭 메뉴 클릭 리스너 설정
-     */
     private void setupBottomNavigationListeners() {
-        // 1. 수면 (현재 화면)
         navSleep.setOnClickListener(v -> Toast.makeText(this, "현재 수면 타이머 화면입니다.", Toast.LENGTH_SHORT).show());
-
-        // 2. ASMR (MusicActivity로 이동)
-        navAsmr.setOnClickListener(v -> {
-            startActivity(new Intent(this, MusicActivity.class));
-            // MusicActivity로 이동 시 MainActivity를 종료하지 않아 뒤로가기를 통해 쉽게 돌아올 수 있도록 합니다.
-        });
-
-        // 3. 통계 및 기록 (SleepHistoryActivity로 이동)
-        navChart.setOnClickListener(v -> {
-            // 🚨 하단 탭은 통계가 포함된 SleepHistoryActivity로 이동합니다.
-            startActivity(new Intent(this, SleepHistoryActivity.class));
-        });
+        navAsmr.setOnClickListener(v -> startActivity(new Intent(this, MusicActivity.class)));
+        navChart.setOnClickListener(v -> startActivity(new Intent(this, SleepHistoryActivity.class)));
     }
 
-    // ------------------- 생명 주기 메서드 -------------------
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkAndRestoreState();
+    }
+
+    private void checkAndRestoreState() {
+        if (isRunning) {
+            btnStart.setText("중지");
+            npHour.setEnabled(false);
+            npMinute.setEnabled(false);
+
+            long currentTime = System.currentTimeMillis();
+            long remainingMillis = targetEndTimeMillis - currentTime;
+
+            if (remainingMillis > 0) {
+                startCountDownTimer(remainingMillis);
+            } else {
+                stopSleep(true);
+            }
+        } else {
+            btnStart.setText("시작");
+            npHour.setEnabled(true);
+            npMinute.setEnabled(true);
+            updateSelectedTime();
+        }
+    }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy(); // 🌟 필수 호출
-        // 액티비티가 파괴될 때 미디어와 타이머를 해제하여 메모리 누수를 방지합니다.
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
+        super.onDestroy();
+        if (!isRunning) {
+            if (mediaPlayer != null) {
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+            if (countDownTimer != null) countDownTimer.cancel();
         }
-        if (countDownTimer != null) countDownTimer.cancel();
+    }
+
+    // ------------------- 💾 데이터 저장/로드 메서드 (SharedPreferences + Gson) -------------------
+
+    private void saveSleepRecords() {
+        SharedPreferences sharedPreferences = getSharedPreferences("DreamTrackerData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        // 리스트를 JSON 문자열로 변환하여 저장
+        String json = gson.toJson(sleepRecords);
+        editor.putString("sleep_history_list", json);
+        editor.apply();
+    }
+
+    private void loadSleepRecords() {
+        SharedPreferences sharedPreferences = getSharedPreferences("DreamTrackerData", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("sleep_history_list", null);
+
+        if (json != null) {
+            java.lang.reflect.Type type = new TypeToken<ArrayList<SleepRecord>>() {}.getType();
+            sleepRecords = gson.fromJson(json, type);
+        } else {
+            sleepRecords = new ArrayList<>();
+        }
     }
 }

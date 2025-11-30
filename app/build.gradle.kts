@@ -46,8 +46,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
+    implementation("androidx.core:core:1.12.0")
     implementation(libs.mpandroidchart)
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // 🔥 AAR 불러오기 정답!
     implementation(files("libs/samsung-health-data-api-1.0.0.aar"))

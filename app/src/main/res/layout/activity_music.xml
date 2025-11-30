@@ -18,159 +18,76 @@
         android:layout_marginTop="50dp"/>
 
     <LinearLayout
-        android:id="@+id/center_content_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_navigation_bar"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="110dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="ASMR 선택"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnDarkNature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bottom_nav_background"
-            android:paddingVertical="18dp"
-            android:text="어두운 자연"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnCalmWaves"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bottom_nav_background"
-            android:paddingVertical="18dp"
-            android:text="잔잔한 물결"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:backgroundTint="@null" />
-
-
-        <TextView
-            android:id="@+id/tvSelectMusicHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="음악을 선택해주세요."
-            android:textColor="#f8f8f8"
-            android:textSize="10sp"
-            android:textStyle="normal" />
-
-        <Button
-            android:id="@+id/btnStopAsmr"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_rounded_background"
-            android:text="정지"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            app:backgroundTint="@null" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginBottom="50sp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_nav_background"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp">
-
+        android:paddingBottom="0dp"> <LinearLayout
+        android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center" android:layout_marginStart="8dp"
+        android:id="@+id/navSleep" android:layout_marginEnd="8dp">
+        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/sleep"
+            android:contentDescription="수면" app:tint="#9494C7" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="수면"
+            android:textColor="#9494C7" android:textSize="12sp" android:layout_marginTop="4dp" />
+    </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navSleep"
-            android:layout_marginEnd="8dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/sleep"
-                android:contentDescription="수면"
-                app:tint="#9494C7" /> <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수면"
-            android:textColor="#9494C7"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp" />
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center" android:layout_marginStart="8dp"
+            android:id="@+id/navAsmr" android:layout_marginEnd="8dp">
+            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/music"
+                android:contentDescription="ASMR" app:tint="#FFFFFF" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ASMR"
+                android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginTop="4dp" />
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navAsmr"
-            android:layout_marginEnd="8dp">
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/music"
-                android:contentDescription="ASMR"
-                app:tint="#FFFFFF" /> <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ASMR"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navChart"
-            android:layout_marginEnd="8dp">
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/chart"
-                app:tint="#9494C7"
-                android:contentDescription="통계 및 기록" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="통계 및 기록"
-                android:textColor="#9494C7"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center" android:layout_marginStart="8dp"
+            android:id="@+id/navChart" android:layout_marginEnd="8dp">
+            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/chart"
+                app:tint="#9494C7" android:contentDescription="통계 및 기록" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="통계 및 기록"
+                android:textColor="#9494C7" android:textSize="12sp" android:layout_marginTop="4dp" />
         </LinearLayout>
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvAppTitle"
+        android:layout_above="@id/bottom_navigation_bar"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/center_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40dp"
+                android:text="ASMR 선택" android:textColor="#FFFFFF" android:textSize="28sp" android:textStyle="bold" />
+            <Button android:id="@+id/btnDarkNature" android:layout_width="match_parent" android:layout_height="60dp"
+                android:layout_marginBottom="16dp" android:background="@drawable/bottom_nav_background" android:text="어두운 자연"
+                android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="18sp" android:paddingVertical="0dp" app:backgroundTint="@null" />
+            <Button android:id="@+id/btnCalmWaves" android:layout_width="match_parent" android:layout_height="60dp"
+                android:layout_marginBottom="16dp" android:background="@drawable/bottom_nav_background" android:text="잔잔한 물결"
+                android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="18sp" android:paddingVertical="0dp" app:backgroundTint="@null" />
+            <TextView android:id="@+id/tvSelectMusicHint" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp" android:text="음악을 선택해주세요." android:textColor="#f8f8f8" android:textSize="10sp" android:textStyle="normal" />
+            <Button android:id="@+id/btnStopAsmr" android:layout_width="150dp" android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_background" android:text="정지" android:textAllCaps="false"
+                android:textColor="#FFFFFF" android:textSize="15sp" app:backgroundTint="@null" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

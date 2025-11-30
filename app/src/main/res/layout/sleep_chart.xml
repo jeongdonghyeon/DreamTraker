@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation_bar"
-        android:paddingTop="24dp"
         android:paddingStart="24dp"
+        android:paddingTop="24dp"
         android:paddingEnd="24dp">
 
         <LinearLayout
@@ -24,61 +24,243 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:text="수면 통계"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/bottom_nav_background"
-                android:padding="16dp"
-                android:layout_marginBottom="24dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="수면 시간"
+                    android:text="수면 시간(요일별)"
                     android:textColor="#AAAAAA"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginBottom="10dp"/>
 
                 <TextView
+                    android:id="@+id/tvTotalSleepTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7시간 30분"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
 
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/sleepChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시간대별 활동량 (뒤척임)"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"/>
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartMovement"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:gravity="center"
-                    android:text="수면 시간 차트"
-                    android:textColor="#000000"
-                    android:background="#AAAAAA"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="16dp" />
 
+                <LinearLayout
+                    android:id="@+id/llSensorCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/sensor_card_background"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tvSensorStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수면 측정"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnStartSensor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingVertical="12dp"
+                            android:text="측정 시작"
+                            android:textColor="#FFFFFF"
+                            app:backgroundTint="#1A1A33" />
+
+                        <View android:layout_width="16dp" android:layout_height="1dp" />
+
+                        <Button
+                            android:id="@+id/btnStopSensor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:paddingVertical="12dp"
+                            android:text="측정 중지"
+                            android:textColor="#FFFFFF"
+                            app:backgroundTint="#9187A5" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvSensorTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="00:00:00"
+                        android:textColor="#E0E0E0"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvMovementCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="뒤척임: 0 회"
+                        android:textColor="#E0E0E0"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/sensor_card_background"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코골이"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartSnoring"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvSnoreStartTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="--:--"
+                        android:textColor="#AAAAAA"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvSnoreEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="--:--"
+                        android:textColor="#AAAAAA"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical">
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="#9FA8DA" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="코골이 발생"
+                        android:textColor="#E0E0E0"
+                        android:textSize="14sp" />
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/tvSnoringCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0회"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="수면 시간 및 기록"
+                android:layout_marginBottom="16dp"
+                android:text="수면 단계 및 기록"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llSleepStageContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bottom_nav_background"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수면 단계 분석"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSleepStageResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="데이터가 없습니다."
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSleepRecords"
                 android:layout_width="match_parent"
-                android:layout_height="138dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -91,84 +273,32 @@
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="50sp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_nav_background"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingBottom="0dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navSleep"
-            android:layout_marginEnd="8dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/sleep"
-                android:contentDescription="수면"
-                app:tint="#9494C7" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수면"
-                android:textColor="#9494C7"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
+            android:id="@+id/navSleep" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:contentDescription="수면" android:src="@drawable/sleep" app:tint="#9494C7" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="수면" android:textColor="#9494C7" android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navAsmr"
-            android:layout_marginEnd="8dp">
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/music"
-                android:contentDescription="ASMR"
-                app:tint="#9494C7" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ASMR"
-                android:textColor="#9494C7"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
+            android:id="@+id/navAsmr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:contentDescription="ASMR" android:src="@drawable/music" app:tint="#9494C7" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="ASMR" android:textColor="#9494C7" android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:id="@+id/navChart"
-            android:layout_marginEnd="8dp">
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/chart"
-                app:tint="#FFFFFF" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="통계 및 기록"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
+            android:id="@+id/navChart" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/chart" app:tint="#FFFFFF" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="통계 및 기록" android:textColor="#FFFFFF" android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
